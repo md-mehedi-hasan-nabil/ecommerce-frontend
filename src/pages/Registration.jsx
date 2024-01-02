@@ -86,7 +86,7 @@ export default function Registration() {
       <div className="w-96 shadow-lg rounded-lg px-6 py-6 lg:px-8 bg-indigo-50 dark:bg-gray-700">
         <div className="flex-center">
           <Link to="/">
-            <img className="w-20 py-3 mx-auto" src={logo} alt="logo" />
+            <img className="w-28 py-3 mx-auto" src={logo} alt="logo" />
           </Link>
         </div>
         <h3 className="mb-4 text-2xl font-medium text-gray-900 dark:text-white">

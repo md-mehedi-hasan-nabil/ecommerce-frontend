@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from "../firebase/firebaseConfig";
 import { useDispatch } from "react-redux";
-import { switchUserRole, userLoggedIn } from "../features/auth/authSlice";
+import { switchUserMode, userLoggedIn } from "../features/auth/authSlice";
 
 export default function useFirebaseAuth() {
   const dispatch = useDispatch();
@@ -13,12 +13,12 @@ export default function useFirebaseAuth() {
 
   useEffect(() => {
     // set initial value in redux store
-    const localStorageRole = localStorage.getItem("role");
-    if (localStorageRole) {
-      dispatch(switchUserRole(localStorageRole));
-    } else {
-      dispatch(switchUserRole("buyer"));
-    }
+    // const localStorageRole = localStorage.getItem("role");
+    // if (localStorageRole) {
+    //   dispatch(switchUserMode(localStorageRole));
+    // } else {
+    //   dispatch(switchUserMode("buyer"));
+    // }
 
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {

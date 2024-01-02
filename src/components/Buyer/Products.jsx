@@ -6,7 +6,7 @@ export default function Products() {
   const { user } = useSelector((state) => state.auth);
   const { isSuccess, data: products } = useGetProductsQuery();
 
-  console.log(user)
+  // console.log(user)
 
   let content;
 

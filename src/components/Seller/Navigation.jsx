@@ -1,13 +1,13 @@
-import { Avatar, Dropdown, Navbar } from "flowbite-react";
+import { Dropdown, Navbar } from "flowbite-react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import { getAuth, signOut } from "firebase/auth";
 import { app } from "../../firebase/firebaseConfig";
 import { toast } from "react-hot-toast";
-import {  userLoggedOut } from "../../features/auth/authSlice";
-import SwitchMode from "../Shared/SwitchMode";
+import { userLoggedOut } from "../../features/auth/authSlice";
+// import SwitchMode from "../Shared/SwitchMode";
 
 export default function Navigation() {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ export default function Navigation() {
               inline={true}
               label={
                 <img
-                  alt="User"
+                  alt="user"
                   src={user?.photoURL}
                   className="w-10 h-10 rounded-full object-cover border-2"
                 />
@@ -56,9 +56,12 @@ export default function Navigation() {
                   {user?.email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item>Dashboard</Dropdown.Item>
-              <SwitchMode mode="seller" />
-              <Dropdown.Item>Earnings</Dropdown.Item>
+
+              <Dropdown.Item>
+                <Link to="/dashboard">Dashboard</Link>
+              </Dropdown.Item>
+              {/* <SwitchMode mode="seller" /> */}
+              {/* <Dropdown.Item>Earnings</Dropdown.Item> */}
               <Dropdown.Divider />
               <Dropdown.Item onClick={accountSignOut}>Sign out</Dropdown.Item>
             </Dropdown>

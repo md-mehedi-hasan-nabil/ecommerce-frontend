@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     accessToken: undefined,
     user: undefined,
-    role: "buyer"
+    mode: "buyer"
 };
 
 const authSlice = createSlice({
@@ -18,12 +18,11 @@ const authSlice = createSlice({
             state.accessToken = undefined;
             state.user = undefined;
         },
-        switchUserRole: (state, action) => {
-            localStorage.setItem("role", action.payload)
-            state.role = action.payload
+        switchUserMode: (state, action) => {
+            state.mode = action.payload
         }
     },
 });
 
-export const { userLoggedIn, userLoggedOut, switchUserRole } = authSlice.actions;
+export const { userLoggedIn, userLoggedOut, switchUserMode } = authSlice.actions;
 export default authSlice.reducer;

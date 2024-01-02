@@ -11,7 +11,7 @@ import AdminLayout from "../components/Layout/AdminLayout";
 
 const adminRouter = createBrowserRouter([
   {
-    path: "/",
+    path: "/dashboard",
     element: <Dashboard />,
     errorElement: <ErrorPage />,
   },

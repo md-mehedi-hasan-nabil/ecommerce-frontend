@@ -8,7 +8,15 @@ import Registration from "../pages/Registration";
 import OrderPage from "../pages/Buyer/Order";
 import Payment from "../pages/Buyer/Payment";
 
-const buyerRouter = createBrowserRouter([
+
+import SellerProducts from "../pages/Seller/SellerProducts";
+import ProductsOrder from "../pages/Seller/ProductsOrder";
+import Earning from "../pages/Seller/Earning";
+import ProductCategory from "../components/Shared/ProductCategory";
+import AddProduct from "../pages/Shared/AddProduct";
+import SellerLayout from "../components/Layout/SellerLayout";
+
+const router = createBrowserRouter([
   {
     path: "/",
     element: <BuyerHome />,
@@ -70,6 +78,56 @@ const buyerRouter = createBrowserRouter([
     element: "",
   },
   {
+    path: "/dashboard",
+    element: <SellerLayout />,
+    children: [
+      {
+        path: "all-product",
+        element: <SellerProducts />,
+      },
+      {
+        path: "add-product",
+        element: (
+          <>
+            <AddProduct />
+          </>
+        ),
+      },
+      {
+        path: "product-category",
+        element: (
+          <>
+            <ProductCategory />
+          </>
+        ),
+      },
+      {
+        path: "product-order",
+        element: <ProductsOrder />,
+      },
+      {
+        path: "earning",
+        element: <Earning />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: (
+      <>
+        <Login />
+      </>
+    ),
+  },
+  {
+    path: "/registration",
+    element: (
+      <>
+        <Registration />
+      </>
+    ),
+  },
+  {
     path: "/login",
     element: (
       <>
@@ -87,4 +145,4 @@ const buyerRouter = createBrowserRouter([
   },
 ]);
 
-export default buyerRouter;
+export default router;

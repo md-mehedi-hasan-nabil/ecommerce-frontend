@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <>
       <div className="grid grid-cols-12">
-        <aside className="hidden md:block col-span-2">
+        {/* <aside className="hidden md:block col-span-2">
           <div className="w-full md:w-fit h-56 sm:h-64 xl:h-80 2xl:h-96 overflow-y-auto">
             <Sidebar aria-label="Sidebar with multi-level dropdown example" style={{width: '100% !important'}}>
               <Sidebar.Items>
@@ -29,8 +29,8 @@ export default function Hero() {
               </Sidebar.Items>
             </Sidebar>
           </div>
-        </aside>
-        <div className="col-span-12 md:col-span-10">
+        </aside> */}
+        <div className="col-span-12">
           <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
             <Carousel>
               <img src={banner1} alt="..." />

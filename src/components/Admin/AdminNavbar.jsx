@@ -6,17 +6,16 @@ import { app } from "../../firebase/firebaseConfig";
 import { toast } from "react-hot-toast";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { switchUserRole } from "../../features/auth/authSlice";
-
+import { switchUserMode } from "../../features/auth/authSlice";
 
 export default function AdminNavbar() {
   const dispatch = useDispatch();
-  const {user} = useFirebaseAuth();
+  const { user } = useFirebaseAuth();
   const auth = getAuth(app);
   const { role } = useSelector((state) => state.auth);
 
   function changeUserRole() {
-    dispatch(switchUserRole(role === "buyer" ? "seller" : "buyer"));
+    dispatch(switchUserMode(role === "buyer" ? "seller" : "buyer"));
   }
 
   function accountSignOut() {

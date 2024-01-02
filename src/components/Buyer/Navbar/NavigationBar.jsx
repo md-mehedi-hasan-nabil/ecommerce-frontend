@@ -9,7 +9,6 @@ import { toast } from "react-hot-toast";
 import useFirebaseAuth from "../../../hooks/useFirebaseAuth";
 import { useDispatch } from "react-redux";
 import { userLoggedOut } from "../../../features/auth/authSlice";
-import SwitchMode from "../../Shared/SwitchMode";
 
 export default function NavigationBar() {
   const dispatch = useDispatch();
@@ -65,8 +64,7 @@ export default function NavigationBar() {
                       {user?.email}
                     </span>
                   </Dropdown.Header>
-                  <Dropdown.Item>Dashboard</Dropdown.Item>
-                  <SwitchMode mode="buyer" />
+                 <Link to="/dashboard"> <Dropdown.Item>Dashboard</Dropdown.Item></Link>
                   <Dropdown.Item>Settings</Dropdown.Item>
                   <Dropdown.Item>Earnings</Dropdown.Item>
                   <Dropdown.Divider />
