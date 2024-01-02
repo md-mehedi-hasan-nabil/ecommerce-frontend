@@ -12,10 +12,6 @@ dist
 dist-ssr
 *.local
 
-server/node_modules
-server/.env
-server/firebase/e-commerce-88f93-firebase-adminsdk.json
-firebase
 .env
 
 # Editor directories and files

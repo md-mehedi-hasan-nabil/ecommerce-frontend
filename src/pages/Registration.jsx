@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import {
   GoogleAuthProvider,
-  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
