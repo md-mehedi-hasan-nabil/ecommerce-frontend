@@ -1,6 +1,5 @@
 import { HelmetProvider } from 'react-helmet-async';
 import "flowbite";
-import "./App.css";
 import { RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 // import adminRouter from "./routes/admin";

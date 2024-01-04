@@ -1,6 +1,6 @@
 export default function SpecialOffer() {
   return (
-    <div className="border-2 rounded-2xl border-red-500 shadow-xl mt-12 p-8 text-center flex flex-col justify-center items-center gap-2">
+    <div className="border-2 rounded-2xl border-red-500 shadow-xl mt-24 p-8 text-center flex flex-col justify-center items-center gap-2">
       <h2 className="text-4xl font-bold mb-4">Special Offer</h2>
       <p className="text-lg">
         Online sales promotions are an old concept and often overused by

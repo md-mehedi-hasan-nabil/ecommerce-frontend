@@ -1,19 +1,17 @@
-import PropTypes from "prop-types";
 import Footer from "../Shared/Footer";
 import NavigationBar from "../Buyer/Navbar/NavigationBar";
+import { Outlet } from "react-router-dom";
 
-export default function BuyerLayout({ children }) {
+export default function BuyerLayout() {
   return (
     <>
       <NavigationBar />
       <div className="container">
-        {children}
+        <Outlet />
         <Footer />
       </div>
     </>
   );
 }
 
-BuyerLayout.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+

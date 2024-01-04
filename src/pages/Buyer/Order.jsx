@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
-import BuyerLayout from "../../components/Layout/BuyerLayout";
 import useFirebaseAuth from "../../hooks/useFirebaseAuth";
-import { useGetCartsQuery } from "../../features/cart/cartApi";
 import Loader from "../../components/Loader/Loader";
 import { useGetOrdersQuery } from "../../features/order/orderApi";
 import { Button } from "flowbite-react";
@@ -23,7 +20,7 @@ export default function Order() {
 
   document.title = "Order Page";
   return (
-    <BuyerLayout>
+    <>
       <div className="grid grid-cols-12 gap-6 py-5">
         {isSuccessFetchOrders && orders.length > 0 ? (
           orders
@@ -33,7 +30,6 @@ export default function Order() {
                 key={order._id}
                 className="col-span-6 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
               >
-                {console.log(order)}
                 <a href="#">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     {order.user.displayName}
@@ -48,7 +44,7 @@ export default function Order() {
                 <p className="mb-3 font-medium text-gray-700">
                   Total price: ৳ {order.total_price}
                 </p>
-                
+
                 <Button>
                   Remove order
                   <svg
@@ -73,6 +69,6 @@ export default function Order() {
           <h2>No order</h2>
         )}
       </div>
-    </BuyerLayout>
+    </>
   );
 }

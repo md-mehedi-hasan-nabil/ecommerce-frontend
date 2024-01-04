@@ -7,19 +7,47 @@ import Login from "../pages/Login";
 import Registration from "../pages/Registration";
 import OrderPage from "../pages/Buyer/Order";
 import Payment from "../pages/Buyer/Payment";
-
-
 import SellerProducts from "../pages/Seller/SellerProducts";
 import ProductsOrder from "../pages/Seller/ProductsOrder";
 import Earning from "../pages/Seller/Earning";
 import ProductCategory from "../components/Shared/ProductCategory";
-import AddProduct from "../pages/Shared/AddProduct";
 import SellerLayout from "../components/Layout/SellerLayout";
+import AddProduct from "../pages/Seller/AddProduct";
+import Contact from "../pages/Buyer/Contact";
+import BuyerLayout from "../components/Layout/BuyerLayout";
+import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <BuyerHome />,
+    element: <BuyerLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "",
+        element: <BuyerHome />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/cart",
+        element: (
+          <PrivateRoute>
+            <CartPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/order",
+        element: (
+          <PrivateRoute>
+            <OrderPage />
+          </PrivateRoute>
+        ),
+      },
+    ],
   },
   {
     path: "/all-product",
@@ -34,22 +62,6 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <ProductDetails />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/cart",
-    element: (
-      <PrivateRoute>
-        <CartPage />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/order",
-    element: (
-      <PrivateRoute>
-        <OrderPage />
       </PrivateRoute>
     ),
   },

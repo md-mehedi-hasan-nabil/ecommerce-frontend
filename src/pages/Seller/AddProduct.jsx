@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import AdminLayout from "../../components/Layout/AdminLayout";
 import { 
   useAddProductMutation,
   useGetCategoriesQuery,
@@ -32,17 +31,6 @@ export default function AddProduct() {
     const short_description = form.short_description.value;
     const long_description = form.long_description.value;
     const category = form.category.value;
-
-    console.log({
-      title,
-      thumbnail,
-      images,
-      price,
-      quantity,
-      short_description,
-      long_description,
-      category,
-    });
     
     addProduct({
       title,
