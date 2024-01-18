@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useGetProductsQuery } from "../../features/product/productApi";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -6,8 +5,7 @@ import Loader from "../Loader/Loader";
 import Error from "./Error";
 import ProductItem from "./ProductItem";
 
-export default function Products({ type }) {
-  const { user } = useSelector((state) => state.auth);
+export default function Products() {
   const {
     data,
     isSuccess: isSuccessFetchProducts,
@@ -16,36 +14,21 @@ export default function Products({ type }) {
     error,
   } = useGetProductsQuery();
 
-  const [filterProducts, setFilterProducts] = useState([]);
-
-  useEffect(() => {
-    if (isSuccessFetchProducts && data.length > 0) {
-      if (type === "admin") {
-        const result = data?.slice();
-        setFilterProducts(result);
-      } else {
-        const result = data?.filter(
-          (product) => product?.user?.email === user?.email
-        );
-        setFilterProducts(result);
-      }
-    }
-  }, [isSuccessFetchProducts, data, type, user]);
 
   let content;
 
-  if (isSuccessFetchProducts && data?.length > 0) {
-    content = filterProducts?.map((product, index) => (
+  if (
+    isSuccessFetchProducts &&
+    data?.length > 0 
+  ) {
+    content = data?.map((product, index) => (
       <ProductItem key={product._id} index={index} product={product} />
     ));
-  }
-  if (isSuccessFetchProducts && data?.length === 0) {
+  } else if (isSuccessFetchProducts && data?.length === 0) {
     content = <h2 className="text-lg">No Products here.</h2>;
-  }
-  if (isLoading) {
+  } else if (isLoading) {
     content = <Loader />;
-  }
-  if (isError) {
+  } else if (isError) {
     content = <Error message={error} />;
   } else {
     content = <h2 className="text-lg">Something was wrong.</h2>;
@@ -83,7 +66,3 @@ export default function Products({ type }) {
     </div>
   );
 }
-
-Products.propTypes = {
-  type: PropTypes.string.isRequired,
-};

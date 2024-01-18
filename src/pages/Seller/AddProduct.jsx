@@ -1,17 +1,16 @@
-import { useEffect } from "react";
-import { 
+import { useEffect, useState } from "react";
+import {
   useAddProductMutation,
-  useGetCategoriesQuery,
 } from "../../features/product/productApi";
 import { toast } from "react-hot-toast";
+import SelectProductCategory from "../../components/Shared/SelectProductCategory";
 
 export default function AddProduct() {
-  const { isSuccess: isSuccessFetchCategories, data: categories } =
-    useGetCategoriesQuery();
   const [addProduct, { isSuccess: isSuccessAddProduct, isError, error }] =
     useAddProductMutation();
 
-  isError && console.log(error);
+  // isError && console.log(error);
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     if (isSuccessAddProduct) {
@@ -30,8 +29,8 @@ export default function AddProduct() {
     const quantity = form.quantity.value;
     const short_description = form.short_description.value;
     const long_description = form.long_description.value;
-    const category = form.category.value;
-    
+    // const category = form.category.value;
+
     addProduct({
       title,
       thumbnail,
@@ -46,6 +45,7 @@ export default function AddProduct() {
     e.target.reset();
   }
 
+  console.log(category);
   return (
     <>
       <div>
@@ -162,29 +162,7 @@ Product Category image url 3
             ></textarea>
           </div>
 
-          <div className="mb-6">
-            <label
-              htmlFor="category"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Select product category*
-            </label>
-            <select
-              id="category"
-              name="category"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            >
-              {isSuccessFetchCategories && categories?.length > 0 ? (
-                categories.map((category) => (
-                  <option key={category._id} value={category._id}>
-                    {category.name}
-                  </option>
-                ))
-              ) : (
-                <option>No category found.</option>
-              )}
-            </select>
-          </div>
+          <SelectProductCategory className="mb-6" label="Select product category*" category={category} onChange={setCategory} />
 
           <button
             type="submit"
