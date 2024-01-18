@@ -9,13 +9,13 @@ export default function Cart() {
 
   const [totalProduct, setTotalProduct] = useState([]);
 
-  const { isSuccess: isSuccessFetchCarts, data: carts } = useGetCartsQuery();
+  const { isSuccess: isSuccessFetchCarts, data: carts } = useGetCartsQuery(
+    user?.email ? user.email : undefined
+  );
 
   useEffect(() => {
     if (isSuccessFetchCarts) {
-      const totalItem = carts?.filter(
-        (cart) => cart.user?.email === user?.email
-      );
+      const totalItem = carts?.filter((cart) => cart?.email === user?.email);
       setTotalProduct(totalItem);
     }
   }, [isSuccessFetchCarts, carts, user]);

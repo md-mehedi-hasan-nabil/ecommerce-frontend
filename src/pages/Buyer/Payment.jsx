@@ -24,19 +24,33 @@ export default function Payment() {
   const [loading, setLoading] = useState(false);
 
   const [totalProducts, setTotalProducts] = useState([]);
-  const [totalPrice, setTotalPrice] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [cartsIdList, setCartsIdList] = useState();
-
-  const { isSuccess: isSuccessFetchUser, data: userInfo } =
-    useGetUserByEmailQuery(user?.email, {
-      skip: user?.email ? false : true,
-    });
 
   const {
     isSuccess: isSuccessFetchCarts,
+    isLoading: isLoadingFetchCarts,
     data: carts,
-    isLoading,
-  } = useGetCartsQuery();
+  } = useGetCartsQuery(user?.email ? user.email : undefined);
+
+  useEffect(() => {
+    if (isSuccessFetchCarts) {
+      const result = carts?.reduce((accumulator, currentValue) => {
+        return (accumulator +=
+          currentValue.product.price * currentValue.quantity);
+      }, 0);
+
+      setTotalPrice(result);
+      setPayment(result);
+
+      const cartId = carts?.reduce(
+        (accumulator, currentValue) => [...accumulator, currentValue._id],
+        []
+      );
+
+      setCartsIdList(cartId);
+    }
+  }, [isSuccessFetchCarts, carts]);
 
   const [addOrder, { isSuccess: isSuccessAddOrder, data: addOrderResponse }] =
     useAddOrderMutation();
@@ -51,33 +65,16 @@ export default function Payment() {
     }
   }, [isSuccessAddOrder]);
 
-  useEffect(() => {
-    if (isSuccessFetchCarts) {
-      const totalItem = carts?.filter(
-        (cart) => cart.user?.email === user?.email
-      );
-      const result = totalItem
-        .map((product) => product?.product?.price * product?.quantity)
-        .reduce((a, b) => a + b, 0);
-
-      const cartsId = totalItem.map((item) => item._id);
-      setCartsIdList(cartsId);
-
-      setTotalPrice(result);
-      setTotalProducts(totalItem);
-      setPayment(result);
-    }
-  }, [isSuccessFetchCarts, carts, user]);
-  if (isLoading) {
+  if (isLoadingFetchCarts) {
     return <Loader />;
   }
 
   function handlePayment() {
-    if (userInfo?._id && cartsIdList && totalPrice) {
+    setLoading(true);
+    if (user?.email && totalPrice) {
       addOrder({
-        user: userInfo?._id,
+        email: user.email,
         cart: cartsIdList,
-        total_price: totalPrice,
       });
     }
   }
@@ -85,10 +82,10 @@ export default function Payment() {
   document.title = "Payment page";
 
   return (
-    <BuyerLayout>
+    <>
       <div>
         <h2 className="text-2xl">
-          Total item: {isSuccessFetchCarts ? totalProducts?.length : 0}
+          Total item: {isSuccessFetchCarts ? carts?.length : 0}
         </h2>
         <h3 className="text-xl mt-2">Total price: {totalPrice}</h3>
       </div>
@@ -210,7 +207,7 @@ export default function Payment() {
             <div className="mt-2">
               <input
                 onChange={(e) => setPayment(e.target.value)}
-                value={totalPrice}
+                value={payment}
                 className="border rounded-md w-full mt-3"
                 placeholder="Enter amount"
                 type="number"
@@ -240,6 +237,6 @@ export default function Payment() {
           </div>
         )}
       </div>
-    </BuyerLayout>
+    </>
   );
 }

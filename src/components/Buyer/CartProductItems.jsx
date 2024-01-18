@@ -19,7 +19,7 @@ export default function CartProductItems({ className }) {
   useEffect(() => {
     if (isSuccessFetchCarts) {
       const totalItem = carts?.filter(
-        (cart) => cart.user?.email === user?.email
+        (cart) => cart?.email === user?.email
       );
       setTotalProduct(totalItem);
     }

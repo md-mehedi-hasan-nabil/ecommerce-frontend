@@ -6,7 +6,6 @@ import Loader from "../../components/Loader/Loader";
 import OrderItem from "../../components/Seller/OrderItem";
 
 export default function ProductsOrder() {
-  const { user } = useSelector((state) => state.auth) || {};
 
   const {
     isSuccess: isSuccessFetchOrders,
@@ -15,23 +14,25 @@ export default function ProductsOrder() {
     isError,
     error,
   } = useGetOrdersQuery();
+
+
   isSuccessFetchOrders && console.log(orders);
 
   const [filterOrders, setFilterOrders] = useState([]);
 
-  useEffect(() => {
-    if (isSuccessFetchOrders && orders?.length > 0) {
-      const result = orders?.filter(
-        (order) => order?.user?.email === user?.email
-      );
-      setFilterOrders(result);
-    }
-  }, [isSuccessFetchOrders, orders, user]);
+  // useEffect(() => {
+  //   if (isSuccessFetchOrders && orders?.length > 0) {
+  //     const result = orders?.filter(
+  //       (order) => order?.user?.email === user?.email
+  //     );
+  //     setFilterOrders(result);
+  //   }
+  // }, [isSuccessFetchOrders, orders, user]);
 
   let content;
 
-  if (isSuccessFetchOrders && orders?.length > 0 && filterOrders?.length > 0) {
-    content = filterOrders?.map((order, index) => (
+  if (isSuccessFetchOrders && orders?.length > 0) {
+    content = orders?.map((order, index) => (
       <OrderItem key={order._id} index={index} order={order} />
     ));
   } else if (isSuccessFetchOrders && orders?.length === 0) {
