@@ -15,6 +15,7 @@ export const orderApi = apiSlice.injectEndpoints({
           params,
         };
       },
+      providesTags: ["orders"],
     }),
     getOrder: builder.query({
       query: (orderId) => `/order/${orderId}`,
@@ -25,6 +26,7 @@ export const orderApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["orders"],
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         // pessimistically cash update
         try {

@@ -9,12 +9,13 @@ export const cartApi = apiSlice.injectEndpoints({
         if (email) {
           params.email = email;
         }
-        
+
         return {
           url: `/cart`,
           params,
         };
       },
+      providesTags: ["carts"],
     }),
     getCart: builder.query({
       query: (cartId) => `/cart/${cartId}`,
@@ -25,29 +26,7 @@ export const cartApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        // pessimistically cash update
-        try {
-          const result = await queryFulfilled;
-
-          const response = await fetch(
-            import.meta.env.VITE_API_URL + `/api/cart/${result.data.data._id}`
-          );
-          const newCart = await response.json();
-
-          dispatch(
-            apiSlice.util.updateQueryData(
-              "getCarts",
-              undefined,
-              (draftCarts) => {
-                draftCarts.push(newCart);
-              }
-            )
-          );
-        } catch (error) {
-          console.log(error);
-        }
-      },
+      invalidatesTags: ["carts"],
     }),
 
     incrementProductToCart: builder.mutation({
@@ -104,23 +83,7 @@ export const cartApi = apiSlice.injectEndpoints({
         method: "DELETE",
         body: data,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        // optimistic cash update
-        const patchResult = dispatch(
-          apiSlice.util.updateQueryData("getCarts", undefined, (draftCarts) => {
-            const index = draftCarts.findIndex(
-              (cart) => cart._id == arg.cartId
-            );
-            draftCarts.splice(index, 1);
-          })
-        );
-
-        try {
-          await queryFulfilled;
-        } catch (error) {
-          patchResult.undo();
-        }
-      },
+      invalidatesTags: ["carts"],
     }),
   }),
 });
