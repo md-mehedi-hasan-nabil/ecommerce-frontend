@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import {
-  useAddProductMutation,
-} from "../../features/product/productApi";
+import { useAddProductMutation } from "../../features/product/productApi";
 import { toast } from "react-hot-toast";
 import SelectProductCategory from "../../components/Shared/SelectProductCategory";
+import { useNavigate } from "react-router-dom";
 
 export default function AddProduct() {
   const [addProduct, { isSuccess: isSuccessAddProduct, isError, error }] =
     useAddProductMutation();
+
+  const navigate = useNavigate();
 
   // isError && console.log(error);
   const [category, setCategory] = useState("");
@@ -15,11 +16,13 @@ export default function AddProduct() {
   useEffect(() => {
     if (isSuccessAddProduct) {
       toast.success("Product add successfully!");
+      navigate("/dashboard/all-product");
     }
-  }, [isSuccessAddProduct]);
+  }, [isSuccessAddProduct, navigate]);
 
   function handleAddProduct(e) {
     e.preventDefault();
+
     const form = e.target;
 
     const title = form.title.value;
@@ -41,11 +44,8 @@ export default function AddProduct() {
       long_description,
       category,
     });
-
-    e.target.reset();
   }
 
-  console.log(category);
   return (
     <>
       <div>
@@ -162,7 +162,12 @@ Product Category image url 3
             ></textarea>
           </div>
 
-          <SelectProductCategory className="mb-6" label="Select product category*" category={category} onChange={setCategory} />
+          <SelectProductCategory
+            className="mb-6"
+            label="Select product category*"
+            category={category}
+            onChange={setCategory}
+          />
 
           <button
             type="submit"

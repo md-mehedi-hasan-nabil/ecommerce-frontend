@@ -1,25 +1,41 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectProductCategory from "./SelectProductCategory";
+import { useUpdateProductMutation } from "../../features/product/productApi";
+import toast from "react-hot-toast";
 
-export default function ProductItem({ product, index }) {
+export default function ProductItem({ product, index, refetch }) {
+  const [updateProduct, { isSuccess: isSuccessUpdateProduct }] =
+    useUpdateProductMutation();
   const { _id, title, thumbnail, category, price } = product || {};
   const [editMode, setEditMode] = useState(false);
 
   const [productTitle, setProductTitle] = useState(title);
   const [productThumbnail, setProductThumbnail] = useState(thumbnail);
-  const [productCategory, setProductCategory] = useState(category?.name);
+  const [productCategory, setProductCategory] = useState(category?._id);
   const [productPrice, setProductPrice] = useState(price);
 
-  function handleUpdateProduct() {
-    const obj = {
-      title: productTitle,
-      thumbnail: productThumbnail,
-      category: productCategory,
-      price: productPrice,
-    };
+  useEffect(() => {
+    if (isSuccessUpdateProduct) {
+      toast.success("Product update successfull.");
+      setEditMode(false);
+      refetch();
+    }
+  }, [isSuccessUpdateProduct, refetch]);
 
-    console.log(obj);
+  function handleUpdateProduct() {
+    if (productPrice && productThumbnail && productCategory && productPrice) {
+      const obj = {
+        title: productTitle,
+        thumbnail: productThumbnail,
+        category: productCategory,
+        price: productPrice,
+      };
+      updateProduct({
+        id: _id,
+        body: obj,
+      });
+    }
   }
 
   return (
@@ -147,4 +163,5 @@ export default function ProductItem({ product, index }) {
 ProductItem.propTypes = {
   product: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
+  refetch: PropTypes.func.isRequired,
 };

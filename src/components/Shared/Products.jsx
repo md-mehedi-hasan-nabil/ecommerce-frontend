@@ -1,6 +1,4 @@
 import { useGetProductsQuery } from "../../features/product/productApi";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import Error from "./Error";
 import ProductItem from "./ProductItem";
@@ -12,6 +10,7 @@ export default function Products() {
     isLoading,
     isError,
     error,
+    refetch
   } = useGetProductsQuery();
 
 
@@ -22,7 +21,7 @@ export default function Products() {
     data?.length > 0 
   ) {
     content = data?.map((product, index) => (
-      <ProductItem key={product._id} index={index} product={product} />
+      <ProductItem key={product._id} index={index} product={product} refetch={refetch} />
     ));
   } else if (isSuccessFetchProducts && data?.length === 0) {
     content = <h2 className="text-lg">No Products here.</h2>;
