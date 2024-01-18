@@ -137,13 +137,14 @@ Product Category image url 3
               htmlFor="short_description"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Enter product short description
+              Enter product short description*
             </label>
             <textarea
               id="short_description"
               rows="4"
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Product description..."
+              required
             ></textarea>
           </div>
 
@@ -152,13 +153,14 @@ Product Category image url 3
               htmlFor="long_description"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Enter product description
+              Enter product description*
             </label>
             <textarea
               id="long_description"
               rows="4"
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Product description..."
+              required
             ></textarea>
           </div>
 
