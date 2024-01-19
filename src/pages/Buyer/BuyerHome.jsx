@@ -5,6 +5,8 @@ import Products from "../../components/Buyer/Products";
 import SpecialOffer from "../../components/Buyer/SpecialOffer";
 import FeaturedCategory from "../../components/Buyer/FeaturedCategory";
 import ContactForm from "../../components/Buyer/ContactForm";
+import FilterProductByCategory from "../../components/Buyer/FilterProductByCategory";
+import bestProduct from "../../assets/best-selling-product.jpg";
 
 export default function BuyerHome() {
   return (
@@ -23,6 +25,17 @@ export default function BuyerHome() {
           <Products />
         </div>
       </div>
+      <div
+        className="flex items-center h-96 bg-cover bg-no-repeat my-8 rounded-lg"
+        style={{ background: `url(${bestProduct})` }}
+      >
+        <div className="pl-12">
+          <h3 className="text-slate-100 text-5xl font-semibold">
+            Enhance Your Music <br /> Experience
+          </h3>
+        </div>
+      </div>
+      <FilterProductByCategory />
       <ContactForm />
     </>
   );

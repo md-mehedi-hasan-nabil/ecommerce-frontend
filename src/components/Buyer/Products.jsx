@@ -1,19 +1,22 @@
-import { useSelector } from "react-redux";
 import { useGetProductsQuery } from "../../features/product/productApi";
 import ProductCard from "./ProductCard";
+import Loader from "../Loader/Loader";
 
 export default function Products() {
-  const { user } = useSelector((state) => state.auth);
-  const { isSuccess, data: products } = useGetProductsQuery();
-
-  // console.log(user)
+  const { isSuccess, data: products, isLoading } = useGetProductsQuery();
 
   let content;
 
-  if (isSuccess && products?.length > 0) {
-    content = products.map((product) => (
-      <ProductCard key={product._id} product={product} />
-    ));
+  if (isLoading) {
+    content = <Loader />;
+  } else if (isSuccess && products?.length > 0) {
+    content = products
+      ?.slice(0, 8)
+      ?.map((product) => <ProductCard key={product._id} product={product} />);
+  } else if (isSuccess && products?.length == 0) {
+    content = <h2>No product here.</h2>;
+  } else {
+    content = <h2>Something was wrong.</h2>;
   }
 
   return (
