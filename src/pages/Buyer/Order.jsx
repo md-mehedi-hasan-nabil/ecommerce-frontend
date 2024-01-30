@@ -8,7 +8,7 @@ export default function Order() {
   const {
     isSuccess: isSuccessFetchOrders,
     data: orders,
-    isLoading: isLoadingFetchOrders,
+    isLoading: isLoadingFetchOrders, 
   } = useGetOrdersQuery(user?.email ? user.email : undefined);
 
   if (isLoadingFetchOrders) {

@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
+
   .active {
     @apply text-blue-700;
   }
-}
+

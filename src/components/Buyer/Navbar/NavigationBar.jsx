@@ -64,7 +64,7 @@ export default function NavigationBar() {
                       {user?.email}
                     </span>
                   </Dropdown.Header>
-                 <Link to="/dashboard"> <Dropdown.Item>Dashboard</Dropdown.Item></Link>
+                 <Link to="/dashboard/all-product"> <Dropdown.Item>Dashboard</Dropdown.Item></Link>
                   <Dropdown.Item>Settings</Dropdown.Item>
                   <Dropdown.Item>Earnings</Dropdown.Item>
                   <Dropdown.Divider />

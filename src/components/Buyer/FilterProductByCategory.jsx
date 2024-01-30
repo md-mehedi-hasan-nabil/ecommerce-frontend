@@ -37,14 +37,15 @@ export default function FilterProductByCategory() {
             <li className="flex items-center">
               <input
                 id="all"
-                type="checkbox"
-                value=""
-                className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                type="radio"
+                value="all"
+                name="category"
+                className="text-sm font-medium text-primary-600"
               />
 
               <label
                 htmlFor="all"
-                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
+                className="ml-2 text-sm font-medium text-gray-900"
               >
                 All
               </label>
@@ -55,14 +56,15 @@ export default function FilterProductByCategory() {
                 <li key={category?._id} className="flex items-center">
                   <input
                     id={category?.name}
-                    type="checkbox"
-                    value=""
-                    className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                    type="radio"
+                    value={category?.name}
+                    name="category"
+                    className="text-sm font-medium text-primary-600"
                   />
 
                   <label
                     htmlFor={category?.name}
-                    className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
+                    className="ml-2 text-sm font-medium text-gray-900"
                   >
                     {category?.name}
                   </label>

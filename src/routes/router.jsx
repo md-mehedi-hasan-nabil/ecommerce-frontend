@@ -91,27 +91,35 @@ const router = createBrowserRouter([
     children: [
       {
         path: "all-product",
-        element: <SellerProducts />,
+        element: (
+          <PrivateRoute>
+            <SellerProducts />
+          </PrivateRoute>
+        ),
       },
       {
         path: "add-product",
         element: (
-          <>
+          <PrivateRoute>
             <AddProduct />
-          </>
+          </PrivateRoute>
         ),
       },
       {
         path: "product-category",
         element: (
-          <>
+          <PrivateRoute>
             <ProductCategory />
-          </>
+          </PrivateRoute>
         ),
       },
       {
         path: "product-order",
-        element: <ProductsOrder />,
+        element: (
+          <PrivateRoute>
+            <ProductsOrder />
+          </PrivateRoute>
+        ),
       },
       {
         path: "earning",
