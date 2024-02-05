@@ -4,8 +4,12 @@ import {
 } from "../../features/product/productApi";
 import ProductCard from "./ProductCard";
 import Loader from "../Loader/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { filterByCategory } from "../../features/product/productSlice";
 
 export default function FilterProductByCategory() {
+  const dispatch = useDispatch();
+  const { productCategory } = useSelector((state) => state.product);
   const { isSuccess, data: products, isLoading } = useGetProductsQuery();
   const { isSuccess: isSuccessFetchCategories, data: categories } =
     useGetCategoriesQuery();
@@ -15,13 +19,33 @@ export default function FilterProductByCategory() {
   if (isLoading) {
     content = <Loader />;
   } else if (isSuccess && products?.length > 0) {
-    content = products.map((product) => (
-      <ProductCard key={product._id} product={product} />
-    ));
+    const filterProduct = products.slice().filter((product) => {
+      if (productCategory == "all") {
+        return true;
+      } else if (product.category.name == productCategory) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    if (filterProduct.length > 0) {
+      content = filterProduct.map((product) => (
+        <ProductCard key={product._id} product={product} />
+      ));
+    } else {
+      content = <h2>No product here.</h2>;
+    }
   } else if (isSuccess && products?.length == 0) {
     content = <h2>No product here.</h2>;
   } else {
     content = <h2>Something was wrong.</h2>;
+  }
+
+  function handleFilter(value) {
+    if (value) {
+      dispatch(filterByCategory(value));
+    }
   }
 
   return (
@@ -31,9 +55,7 @@ export default function FilterProductByCategory() {
           <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">
             Category
           </h6>
-          <ul
-            className="space-y-3 text-sm py-2"
-          >
+          <ul className="space-y-3 text-sm py-2">
             <li className="flex items-center">
               <input
                 id="all"
@@ -41,6 +63,8 @@ export default function FilterProductByCategory() {
                 value="all"
                 name="category"
                 className="text-sm font-medium text-primary-600"
+                onChange={(e) => handleFilter(e.target.value)}
+                checked={productCategory == "all"}
               />
 
               <label
@@ -60,6 +84,7 @@ export default function FilterProductByCategory() {
                     value={category?.name}
                     name="category"
                     className="text-sm font-medium text-primary-600"
+                    onChange={(e) => handleFilter(e.target.value)}
                   />
 
                   <label
