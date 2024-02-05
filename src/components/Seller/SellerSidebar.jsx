@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function SellerSidebar() {
   const sidebarLinks = [
@@ -146,7 +146,7 @@ export default function SellerSidebar() {
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50">
           <ul className="space-y-2 font-medium mt-5">
-            {sidebarLinks.map((link) => (
+            {sidebarLinks?.map((link) => (
               <li key={link.name}>
                 <NavLink
                   to={link.path}

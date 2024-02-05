@@ -2,6 +2,7 @@ import Navigation from "../Seller/Navigation";
 import Footer from "../Shared/Footer";
 import SellerSidebar from "../Seller/SellerSidebar";
 import { Outlet } from "react-router-dom";
+import { ScrollRestoration } from "react-router-dom";
 
 export default function SellerLayout() {
   return (
@@ -16,6 +17,7 @@ export default function SellerLayout() {
         </div>
       
       <Footer />
+      <ScrollRestoration />
     </div>
   );
 }

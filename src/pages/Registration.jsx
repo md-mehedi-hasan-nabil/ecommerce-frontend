@@ -52,8 +52,8 @@ export default function Registration() {
           const alreadyRegisterUser = registerUsers?.filter(
             (user) => user.email === email
           );
-          console.log(registerUsers);
-          console.log(alreadyRegisterUser);
+          // console.log(registerUsers);
+          // console.log(alreadyRegisterUser);
 
           if (alreadyRegisterUser.length === 0) {
             // if user is not register

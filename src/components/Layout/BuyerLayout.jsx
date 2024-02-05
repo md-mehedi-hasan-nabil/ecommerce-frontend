@@ -1,6 +1,7 @@
 import Footer from "../Shared/Footer";
 import NavigationBar from "../Buyer/Navbar/NavigationBar";
 import { Outlet } from "react-router-dom";
+import { ScrollRestoration } from "react-router-dom";
 
 export default function BuyerLayout() {
   return (
@@ -10,6 +11,7 @@ export default function BuyerLayout() {
         <Outlet />
         <Footer />
       </div>
+      <ScrollRestoration />
     </>
   );
 }
