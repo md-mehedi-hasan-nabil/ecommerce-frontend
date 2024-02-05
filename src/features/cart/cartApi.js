@@ -35,6 +35,7 @@ export const cartApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["carts"]
     }),
 
     decreaseProductToCart: builder.mutation({
@@ -43,6 +44,7 @@ export const cartApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["carts"]
     }),
 
     updateProductQuantity: builder.mutation({
@@ -51,30 +53,7 @@ export const cartApi = apiSlice.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        // pessimistically cash update
-        try {
-          const result = await queryFulfilled;
-          console.log(arg);
-          console.log(result.data.data.cartQuantity);
-          // const response = await fetch(import.meta.env.VITE_API_URL + `/api/cart/${arg.cartId}`)
-          // const newCart = await response.json()
-
-          dispatch(
-            apiSlice.util.updateQueryData(
-              "getCarts",
-              undefined,
-              (draftCarts) => {
-                const cart = draftCarts.find((cart) => cart._id == arg.cartId);
-                cart.quantity = result.data.data.cartQuantity;
-                console.log(JSON.stringify(cart));
-              }
-            )
-          );
-        } catch (error) {
-          console.log(error);
-        }
-      },
+      invalidatesTags: ["carts"],
     }),
 
     removeProductFromCart: builder.mutation({

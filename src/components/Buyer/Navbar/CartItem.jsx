@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   useRemoveProductFromCartMutation,
@@ -20,7 +20,6 @@ export default function CartItem({ cart }) {
     { isSuccess: isSuccessUpdateProductQuantity, data: updateProductResponse },
   ] = useUpdateProductQuantityMutation();
 
-
   useEffect(() => {
     if (isSuccessRemoveProductFromCart) {
       toast.success("Remove from cart.");
@@ -40,17 +39,25 @@ export default function CartItem({ cart }) {
   }
 
   function increaseProductCount() {
-    updateProductQuantity({
-      type: "increase",
-      cartId: _id,
-    });
+    if (cart?.product?.quantity == 1) {
+      toast.error("Product quantity is empty.");
+    } else {
+      updateProductQuantity({
+        type: "increase",
+        cartId: _id,
+      });
+    }
   }
 
   function decreaseProductCount() {
-    updateProductQuantity({
-      type: "decrease",
-      cartId: _id,
-    });
+    if (cart.quantity == 1) {
+      toast.error("Minimum product quantity is one.");
+    } else {
+      updateProductQuantity({
+        type: "decrease",
+        cartId: _id,
+      });
+    }
   }
 
   return (

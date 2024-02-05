@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 
 export default function AddToCartButton({ product, size = "xs" }) {
   const { _id } = product || {};
-  const {user} = useFirebaseAuth();
+  const { user } = useFirebaseAuth();
   const [addProductToCart, { isSuccess: isSuccessAddProductToCart }] =
     useAddToCartMutation();
 
@@ -23,6 +23,9 @@ export default function AddToCartButton({ product, size = "xs" }) {
       email: user.email,
     });
   }
+
+  console.log(product);
+
   return (
     <Button onClick={() => handleAddToCart(_id)} size={size}>
       Add to cart

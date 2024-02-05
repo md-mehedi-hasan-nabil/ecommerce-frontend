@@ -28,6 +28,14 @@ const router = createBrowserRouter([
         element: <BuyerHome />,
       },
       {
+        path: "/product-details/:productId",
+        element: (
+          <PrivateRoute>
+            <ProductDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/contact",
         element: <Contact />,
       },
@@ -60,14 +68,6 @@ const router = createBrowserRouter([
   {
     path: "/most-selling-product",
     element: "",
-  },
-  {
-    path: "/product-details/:productId",
-    element: (
-      <PrivateRoute>
-        <ProductDetails />
-      </PrivateRoute>
-    ),
   },
   {
     path: "/place-order",

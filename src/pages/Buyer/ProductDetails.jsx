@@ -1,16 +1,10 @@
 import { useParams } from "react-router-dom";
-import Layout from "../../components/Layout/BuyerLayout";
 import { useGetProductQuery } from "../../features/product/productApi";
 import AddToCartButton from "../../components/Buyer/AddToCartButton";
 
-
 export default function ProductDetails() {
   const { productId } = useParams() || {};
-  const {
-    isSuccess,
-    data: product,
-    isLoading,
-  } = useGetProductQuery(productId, {
+  const { data: product, isLoading } = useGetProductQuery(productId, {
     skip: productId ? false : true,
   });
 
@@ -26,8 +20,8 @@ export default function ProductDetails() {
   } = product || {};
 
   return (
-    <Layout>
-      {isLoading && !isSuccess ? (
+    <>
+      {isLoading ? (
         <div
           role="status"
           className="container py-5 space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center"
@@ -83,6 +77,6 @@ export default function ProductDetails() {
           </div>
         </div>
       )}
-    </Layout>
+    </>
   );
 }
